@@ -1,0 +1,15 @@
+/* Copyright (C) 2014 Junjie_Huang@SYSU(SNO:13331087). All Rights Reserved. */
+body {
+	width: 1024px;
+	background-color: yellow;
+}
+
+strong {
+	font-size: 2em;
+	color: blue;
+}
+
+i {
+	color: blue;
+	text-decoration: underline;
+}

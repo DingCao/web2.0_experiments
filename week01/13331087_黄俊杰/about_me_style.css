@@ -1,0 +1,39 @@
+html {
+	background-color: green;
+	font-size: large;
+}
+
+h1, h2 {
+	color: gold;
+}
+
+p {
+	color: DarkTurquoise;
+	font-family:"黑体", "Times New Roman", Times, serif;
+}
+p:first-letter {
+	font-size: 1.5em;
+}
+
+a:link {
+	text-decoration: none;
+    color: gold;
+}
+a:visited {
+    color: Gray;
+}
+a:hover {
+	text-decoration: underline;
+    color: HotPink;
+}
+a:active {
+    color: blue;
+}
+
+strong {
+	color:  yellow;
+}
+
+li {
+	color: darkTurquoise;
+}

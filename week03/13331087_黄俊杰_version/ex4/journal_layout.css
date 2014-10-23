@@ -1,0 +1,67 @@
+/*Copyright (c) Junjie_Huang@SYSU(SNO:13331087). All Rights Reserved. */
+/* CSE 190 M, Spring 2008, Lab 2, Journal
+   A starter CSS file that gives basic styles to various elements
+   for aesthetic purposes. 
+*/
+
+body {
+	font-family: "Georgia";
+	color: #009097;
+	background-image: url(images/background.gif);
+
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+div.mainbody {
+	border: 10px white solid;
+	background-color: white;
+}
+
+div.titles {
+	background-color: #A8F0F0;
+	padding-top: 10px;
+	text-align: right;
+}
+div.subtitle {
+	font-size: 14px;
+	margin: 5px;
+}
+
+div.text {
+	border: 4px #C2E9E9 solid;
+	background-color: #E8FBFB;
+	padding-top: 10px;
+	margin-top: 10px;
+	overflow: hidden;
+}
+
+h1, h2 {
+	font-weight: normal;
+	font-family: "Century Gothic";
+}
+
+a {
+	color: #245F5F;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+
+blockquote {
+	font-style: italic;
+}
+
+img {
+	border-style: none;
+}
+img.intext {
+	border-style: none;
+	padding: 5px;
+	float: right;
+}
+
+span.date {
+	border-bottom: 2px #009097 dashed;
+}

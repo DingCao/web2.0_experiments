@@ -1,0 +1,44 @@
+/* Copyright (C) 2014 Junjie_Huang@SYSU(SNO:13331087). All Rights Reserved. */
+body {
+	width: 1024px;
+	font-size: 11pt;
+	font-family: Georgia, Garamond, serif;
+	background-image: url("images/silverware.jpg");
+	background-repeat: initial;
+	background-attachment: fixed;
+}
+
+h1, h2 {
+	color: #A4A400;
+	background-color: #F0F0F0;
+	text-decoration: underline;
+	font-family: "Century Gothic", Futura, Verdana;
+}
+
+h1 {
+	letter-spacing: 0.2em;
+	font-weight: bold;
+	font-size: 22pt;
+	text-align: center;
+}
+
+h2 {
+	font-size: 18pt;
+}
+
+blockquote {
+	font-style: italic;
+	background-color: #FFFFC8;
+}
+
+ul#INGREDIENTS {
+	list-style-image: url("images/pie_icon.gif");
+}
+
+ul.method {
+	list-style-image: url("images/pie_icon.gif");
+}
+
+ol {
+	list-style-type: "1";
+}
