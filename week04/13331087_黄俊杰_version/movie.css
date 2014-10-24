@@ -33,13 +33,55 @@ div#left-section {
 div#right-section {
 	width: 250px;
 	margin-left: 550px;
+	margin-top: -83px;
+	padding: 10px;
+	background-color: #A2B964;
+	font-size: 8pt;
+	font-family: Arial, Sans-serif;
 }
 div#rotten {
 	background-image: url("images/rottenbackground.png");
 	height: 83px;
 	font-size: 8pt;
 	color: white;
+}
+div.comments-list {
+	float: left;
+	width: 47%;
+	margin-left: 2%;
+}
+div.comments {
+	margin-bottom: 3em;
+}
+p.comments {
+	font-size: 8px;
+	font-weight: bold;
+	background-color: #E1D697;
+	border: 2px gray solid;
+	padding: 8px;
+}
+div#tail p {
+	margin: 0px;
+	border: 0px;
+	text-align: center;
+	background-color: #A2B964;
+	padding: 5px;
+}
+div#checkers {
+	width:88px;
+	position: fixed;
+	top: 100%;
+	left: 100%;
+	margin-left: -88px;
+	margin-top: -68px;
+}
 
+img.icon {
+	float: left;
+	margin-right: 5px;
+}
+img#photo {
+	margin: -10px;
 }
 
 span.red, span.white {
@@ -49,4 +91,14 @@ span.red {
 	color: red;
 	font-weight: bolder;
 	font-size: 48pt;
+}
+span.address {
+	font-style: italic;
+}
+
+dt {
+	font-weight: bold;
+}
+dd {
+	margin-bottom: 1em;
 }
