@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>{{title}} - Rancid Tomatoes</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link href="{{static_url("movie.css")}}" type="text/css" rel="stylesheet" />
+		<link href="{{static_url("movie.css")}}images/rotten.gif" rel="icon" />
+	</head>
+
+	<body>
+		<div id="banner">
+			<img src="{{static_url("images/banner.png")}}" alt="Rancid Tomatoes" />
+		</div>
+
+		<h1 id="main-title">{{title}} ({{year}})</h1>
+		
+		<div id="main-text">
+			<div id="left-section">
+				<div id="rotten">
+					<img src="{{static_url("images/rottenbig.png")}}" alt="Rotten" />
+					<span class="red">{{percent}}</span>
+					<span class="white">({{total}} reviews total)</span>
+				</div>
+
+				<div class="comments-list">
+					{% for comment in commentlist1 %}
+					<div class="comments">
+						<p class="comments">
+							<img class="icon" src="{{static_url("images/")}}{{comment[1]}}.gif" alt="{{comment[1]}}" />
+							<q>{{comment[0]}}</q>
+						</p>
+						<p>
+							<img class="icon" src="{{static_url("images/critic.gif")}}" alt="Critic" />
+							{{comment[2]}} <br />
+							<span class="address">{{comment[3]}}</span>
+						</p>
+					</div>
+					{% end %}
+				</div>
+
+				<div class="comments-list">
+					{% for comment in commentlist2 %}
+					<div class="comments">
+						<p class="comments">
+							<img class="icon" src="{{static_url("images/")}}{{comment[1]}}.gif" alt="{{comment[1]}}" />
+							<q>{{comment[0]}}</q>
+						</p>
+						<p>
+							<img class="icon" src="{{static_url("images/critic.gif")}}" alt="Critic" />
+							{{comment[2]}} <br />
+							<span class="address">{{comment[3]}}</span>
+						</p>
+					</div>
+					{% end %}
+				</div>
+			</div>
+
+			<div id="right-section">
+				<div>
+					<img id="photo" src="{{static_url("")}}{{title}}/generaloverview.png" alt="general overview" />
+				</div>
+
+				<dl>
+					{% for overview in generaloverview %}
+						<dt>{{overview[0]}}</dt>
+						<dd>{{overview[1]}}</dd>
+						{% end %}
+				</dl>
+			</div>
+
+			<div id="tail">
+				<p>(1-{{len(commentlist1)+len(commentlist2)}}) of {{total}}</p>
+			</div>
+		</div>
+
+		<div id="checkers">
+			<a href="http://validator.w3.org/check/referer">
+				<img src="http://www.w3.org/Icons/valid-xhtml11" alt="html validator" title="html validator">
+			</a>
+			<a href="http://jigsaw.w3.org/css-validator/check/referer">
+				<img src="http://jigsaw.w3.org/css-validator/images/vcss" alt="css validator" title="css validator">
+			</a>
+		</div>
+	</body>
+</html>
