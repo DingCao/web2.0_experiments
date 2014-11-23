@@ -8,6 +8,7 @@
 		<link href="{{static_url("movie.css")}}images/rotten.gif" rel="icon" />
 	</head>
 
+	{% autoescape None %}
 	<body>
 		<div id="banner">
 			<img src="{{static_url("images/banner.png")}}" alt="Rancid Tomatoes" />
@@ -58,7 +59,7 @@
 
 			<div id="right-section">
 				<div>
-					<img id="photo" src="{{static_url("")}}{{title}}/generaloverview.png" alt="general overview" />
+					<img id="photo" src="{{static_url("")}}{{movie}}/generaloverview.png" alt="general overview" />
 				</div>
 
 				<dl>

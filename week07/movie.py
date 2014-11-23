@@ -16,8 +16,8 @@ class FilmHandler(tornado.web.RequestHandler):
         the music list we choose in the playlist '''
     def get(self):
         # get the file name & path
-        path = "static/"+self.get_argument('movie')+"/"
-        path.encode("utf-8")
+        movie = self.get_argument('movie')
+        path = "static/"+movie+"/"
 
         info = open(path+"info.txt").readlines()
         generaloverview = open(path+"generaloverview.txt").readlines()
@@ -40,7 +40,7 @@ class FilmHandler(tornado.web.RequestHandler):
             else :
                 commentlist1.append(temp_comment)
 
-        self.render("movie.html",
+        self.render("movie.html", movie=movie,
                     title=info[0], year=info[1],
                     percent=info[2], total=info[3],
                     generaloverview=general,
@@ -50,7 +50,7 @@ class FilmHandler(tornado.web.RequestHandler):
 if __name__ == "__main__":
     tornado.options.parse_command_line()
     APP = tornado.web.Application(
-        handlers=[(r'/', FilmHandler)],
+        handlers=[(r'/movie.py', FilmHandler)],
         template_path=os.path.join(os.path.dirname(__file__), "templates"),
         static_path=os.path.join(os.path.dirname(__file__), "static"),
         debug=True)  # define this to can exit the python file by keyboard
