@@ -1,5 +1,5 @@
-''' Copyright (c) 2014 Huang_Junjie@SYSU(SNO:13331087). All Rights Reserved.
-    buyagrade.py: LAB4@web2.0_2014_by_PML '''
+''' Copyright (c) 2014 Huang_Junjie@SYSU(SNO:13331087). All Rights Reserved. '''
+''' buyagrade.py: LAB4@web2.0_2014_by_PML '''
 import os
 import re
 
@@ -17,10 +17,7 @@ OPTIONS = OPTIONS_FILE.read().split('\n')
 OPTIONS_FILE.close()
 
 def find(name, NAMES):
-    for this_name in NAMES:
-        if this_name == name:
-            return True
-    return False
+    return (name in NAMES)
 
 def cardConvert(card_number):
     ''' if a card_number is valid, throw the '-' character in it '''
@@ -85,15 +82,15 @@ class SuckerHandler(tornado.web.RequestHandler):
         # determines what pages we should respones
         if is_valid1 and is_card_valid:
             suckers_file = open("statics/data/suckers.txt")
-            suckers = suckers_file.readlines()
+            suckers = suckers_file.read().strip().split('\n')
             suckers_file.close()
 
             this_sucker = name+';'+section+';'+card_number+';'+card_type
-            if not this_sucker+'\n' in suckers:
-                suckers.append(this_sucker+'\n')
+            if not this_sucker in suckers:
+                suckers.append(this_sucker)
 
                 suckers_file = open("statics/data/suckers.txt", "w")
-                suckers_file.writelines(suckers)
+                suckers_file.writelines('\n'.join(suckers))
                 suckers_file.close()
 
             suckers_file = open("statics/data/suckers.txt")

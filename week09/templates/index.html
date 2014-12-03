@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<!-- CSE 190 M Homework 4 (NerdLuv) -->
+	<head>
+		<title>NerdLuv</title>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<link href="heart.gif" type="image/gif" rel="shortcut icon" />
+		<link href="{{static_url("nerdluv.css")}}" type="text/css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<div id="main">
+			<div id="bannerarea">
+				<img src="{{static_url("nerdluv.png")}}" alt="banner logo" /> <br />
+				where meek geeks meet
+			</div>
+
+
+			<form  action="/result" method="post">
+				<fieldset>
+					<legend>New User Signup:</legend>
+					<div>
+						<strong>Name:</strong>
+						<input type="text" name="name" size="16" value="">
+					</div>
+
+					<div>
+						<strong>Gender:</strong>
+						<label><input type="radio" name="gender" value="M">Male</label>
+						<label><input type="radio" name="gender" value="F" checked="checked">Female</label>
+					</div>
+
+					<div>
+						<strong>Age:</strong>
+						<input type="text" name="age" size="5" maxlength="2" value="">
+					</div>
+
+					<div>
+						<strong>Personality type:</strong>
+						<input type="text" name="personality" size="5" maxlength="4" value="">
+						(<a href="http://www.humanmetrics.com/cgi-win/JTypes2.asp">Don't know your type?</a>)
+					</div>
+
+					<div>
+						<strong>Favorite OS:</strong>
+						<select name="os">
+							<option selected="selected">Windows</option>
+							<option>Mac OS X</option>
+							<option>Linux</option>
+							<option>other</option>
+						</select>
+					</div>
+
+
+					<div id="seeking">
+						<strong>Seeking:</strong>
+						<label><input type="checkbox" name="seeking" value="M" checked="checked">Male</label>
+						<label><input type="checkbox" name="seeking" value="F">Female</label>
+					</div>
+
+					<div>
+						<strong>Between ages:</strong>
+						<input type="text" name="min-age" size="5" maxlength="2" value = "">and
+						<input type="text" name="max-age" size="5" maxlength="2" value = "">
+					</div>
+
+					<div>
+						<input id="submit" type="submit" name="submition" value="Sign Up">
+					</div>
+				</fieldset>
+			</form>
+		</div>
+
+		<p>
+			Results and page (C) Copyright 2009 NerdLuv Inc.
+		</p>
+
+		<div id="w3c">
+			<a href="http://validator.w3.org/check/referer">
+				<img src="http://www.w3.org/Icons/valid-xhtml11" alt="Valid XHTML 1.1" /></a>
+			<a href="http://jigsaw.w3.org/css-validator/check/referer">
+				<img src="http://jigsaw.w3.org/css-validator/images/vcss" alt="Valid CSS" /></a>
+		</div>
+	</body>
+</html>
