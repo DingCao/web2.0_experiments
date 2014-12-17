@@ -22,6 +22,8 @@ window.onload = function () {
   }
   $("Stop").onclick = stop_or_change;
   $("Animation").onchange = stop_or_change;
+
+  // a simple way to change the size.
   $$("Size")[0].onclick = function() {
     $("displayarea").className = $$("Size")[0].value;
   }
