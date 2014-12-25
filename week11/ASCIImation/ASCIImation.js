@@ -6,8 +6,8 @@ function $$(string) {
   return document.getElementsByName(string);
 }
 
-var timer;
-var delay = 200;
+var timer = null;  // the timer to control whether an animation should be played
+var delay = 200;  // default speed of the animations
 
 window.onload = function () {
   // initializations
@@ -23,16 +23,11 @@ window.onload = function () {
   $("Stop").onclick = stop_or_change;
   $("Animation").onchange = stop_or_change;
 
-  // a simple way to change the size.
-  $$("Size")[0].onclick = function() {
-    $("displayarea").className = $$("Size")[0].value;
+  // a more universal way to change the size.
+  for (var i =0; i < $$("Size").length; i++) {
+    $$("Size")[i].onclick = changeSize;
   }
-  $$("Size")[1].onclick = function() {
-    $("displayarea").className = $$("Size")[1].value;
-  }
-  $$("Size")[2].onclick = function() {
-    $("displayarea").className = $$("Size")[2].value;
-  }
+
   $("Turbo").onchange = changeSpeed;
 }
 
@@ -65,4 +60,8 @@ function changeSpeed() {
     delay = 50;
   else
     delay = 200;
+}
+
+function changeSize() {
+  $("displayarea").className = this.value;
 }
