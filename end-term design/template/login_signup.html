@@ -8,7 +8,6 @@
 
     <!-- Bootstrap -->
     <link href="{{ static_url('css/bootstrap.min.css') }}" rel="stylesheet">
-
     <link href="{{ static_url('css/index.css') }}" rel="stylesheet">
   </head>
   <body>
@@ -22,29 +21,24 @@
       </div>
     </nav>
     <div class="container">
-      <div class="jumbotron ask col-sm-12">
-        <form class="form-horizontal" role="form" method="post" action = "/question">
+      <div class="jumbotron loginSignup col-sm-5 col-sm-offset-3">
+        <form class="form-horizontal" role="form" method="post" action="{{ action }}">
           <div class="form-group">
-            <label for="title" class="col-sm-2 control-label">{{ subtitle }}</label>
-            <div class="col-sm-4">
-              <input type="title" class="form-control" id="title" name="title">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="time" class="col-sm-2 control-label">{{ uptime }}</label>
-            <div class="col-sm-4">
-              <input class="form-control" id="time" name="time">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="content" class="col-sm-2 control-label">{{ uptext }}</label>
+            <label for="name" class="col-sm-4 control-label">用户名</label>
             <div class="col-sm-6">
-              <textarea cols="50" rows="15" id="content" name="content"></textarea>
+              <input type="username" class="form-control" id="name" name="name">
             </div>
           </div>
           <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-4">
+            <label for="password" class="col-sm-4 control-label">密码</label>
+            <div class="col-sm-6">
+              <input type="password" class="form-control" id="password" name="password">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-12">
               <button type="submit" class="btn btn-primary">{{ button }}</button>
+            	<a href="{{ url }}">{{ link1 }}</a>
             </div>
           </div>
         </form>
