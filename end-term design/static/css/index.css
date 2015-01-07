@@ -14,6 +14,21 @@ body {
 	width:100%;
 }
 
+.hidediv{
+    width:250px;
+    height:400px; 
+    border:solid 1px #666; 
+    background:#036;
+}
+
+.hider {
+	width:250px;
+}
+
+#home {
+	margin-top:10%;
+}
+
 .loginSignup {
 	margin-top: 25%;
 	background-color: rgba(199, 157, 110, 0.3);
@@ -24,7 +39,7 @@ body {
 }
 
 #headimg {
-	display:inline;
+	display:inline-block;
 }
 
 .post {

@@ -68,7 +68,7 @@ def write_Replies(replies):
     reply_list = []
     for reply in replies:
         print reply
-        reply_list.append(';'.join(reply).encode('utf8'))
+        reply_list.append(';'.join(reply).encode('utf-8'))
     reply_file.write('\n'.join(reply_list)+'\n')
     reply_file.close()
 
@@ -83,6 +83,7 @@ class IndexHandler(BaseHandler):
             questions = get_Questions()
             print questions
             replies = get_Replies()
+            print replies
             self.render("index.html",title='主页', Username=self.current_user,
                         questions=questions, replies=replies)
         else:
@@ -93,11 +94,12 @@ class IndexHandler(BaseHandler):
 class LoginHandler(BaseHandler):
     def get(self):
         self.render("login_signup.html", title="登录页面", button="登录",
-                    link="没有账号？点击注册", url="/signup", action="/login")
+                    link="没有账号？点击注册", url="/signup", action="/login",
+                    subtitle="")
 
     def post(self):
-        user = [self.get_argument("name").decode('utf-8'),
-                self.get_argument("password").decode('utf-8')]
+        user = [self.get_argument("name").encode('utf-8'),
+                self.get_argument("password").encode('utf-8')]
         users = get_Users()
         if user in users:
             self.set_secure_cookie("user", user[0], expires_days=None)
@@ -105,7 +107,7 @@ class LoginHandler(BaseHandler):
         else:
             self.render("login_signup.html", title="登录页面", button="登录",
                         link="没有账号？点击注册", url="/signup",
-                        action="/login")
+                        action="/login", subtitle="登录失败，请重新尝试")
 
 
 class LogoutHandler(BaseHandler):
@@ -118,14 +120,15 @@ class SignUpHandler(BaseHandler):
     def get(self):
         self.render("login_signup.html", title = "注册页面", button="注册",
                     link="已有账号？点击登录",
-                    url="/login", action="/signup")
+                    url="/login", action="/signup", subtitle="")
 
     def post(self):
         user = [self.get_argument("name").encode('utf-8'),
                 self.get_argument("password").encode('utf-8')]
         users = get_Users()
 
-        valid_1 = name_pattern.match(user[0]) and password_pattern.match(user[1])
+        valid_1 = name_pattern.match(user[0]) and \
+            password_pattern.match(user[1])
         valid_2 = not (user[0] == "" or user[1] == "")
         valid_3 = (not user in users)
 
@@ -138,7 +141,8 @@ class SignUpHandler(BaseHandler):
         else:
             self.render("login_signup.html", title = "注册页面", button="注册",
                         link="已有账号？点击登录",
-                        url="/login", action="/signup")
+                        url="/login", action="/signup",
+                        subtitle="注册失败，请重新尝试")
 
 
 # coded by YaoShaoling, correted by HuangJunjie
@@ -147,7 +151,8 @@ class QuestionHandler(BaseHandler):
         if self.current_user:
             self.render('question.html', title="提问页面", subtitle="问题",
                         uptime="提交时间", uptext="问题内容", button="提交问题",
-                        Username=self.current_user)
+                        Username=self.current_user,
+                        current=time.strftime("%Y-%m-%d"))
         else:
             self.render("login_signup.html", title="登录页面", button="登录",
                     link="没有账号？点击注册", url="/signup", action="/login")
@@ -163,7 +168,8 @@ class QuestionHandler(BaseHandler):
             return self.render('question.html', title="提问页面",
                                subtitle="问题", uptime="提交时间",
                                uptext="问题内容", button="提交问题",
-                               Username=self.current_user)
+                               Username=self.current_user,
+                               current=time.strftime("%Y-%m-%d"))
 
         if stitle and stime and stext:
             new_question = [stitle, stime, self.current_user, stext]
@@ -173,7 +179,8 @@ class QuestionHandler(BaseHandler):
 
         return self.render('question.html', title="提问页面", subtitle="问题",
                             uptime="提交时间", uptext="问题内容",
-                            button="提交问题", Username=self.current_user)
+                            button="提交问题", Username=self.current_user,
+                            current=time.strftime("%Y-%m-%d"))
 
 
 class WrongHandler(tornado.web.RequestHandler):
@@ -192,10 +199,11 @@ class ResponseHandler(BaseHandler):
         replies = get_Replies()
         print replies
         responsetext = self.get_argument('responsetext', None)
-        responseauthor = self.get_argument('author', None)
-        if responsetext and responseauthor:
-            new_reply = [responseauthor, time.strftime("%Y-%m-%d %H:%M"),
+        responsetitle = self.get_argument('title', None)
+        if responsetext and responsetitle:
+            new_reply = [responsetitle, time.strftime("%Y-%m-%d %H:%M"),
                          self.current_user, responsetext]
+            print new_reply
             replies.append(new_reply)
             write_Replies(replies)
         return self.redirect('/')

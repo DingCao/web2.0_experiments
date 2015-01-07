@@ -11,16 +11,30 @@
 
     <link href="{{ static_url('css/index.css') }}" rel="stylesheet">
     <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js" type="text/javascript"></script>
+    <script src="{{ static_url('js/CodeExchange.js') }}" type="text/javascript"></script>
     <script src="{{ static_url('js/response.js') }}" type="text/javascript"></script>
+    <script src="{{ static_url('js/slipe.js') }}" type="text/javascript"></script>
   </head>
   <body>
     <nav class="navbar navbar-ghost" role="navigation">
-      <div class="container-fluid">
+      <div class="hidediv">
         <div class="navbar-header">
-          <a class="navbar-brand" href="/">
+          <a class="navbar-brand">
             <img id="headimg" width="50" src="{{ static_url('images/band.png') }}" alt="logo">
           </a>
-          <a class="navbar-brand" href="/">{{ Username }}</a>
+            <span class="navbar-brand">{{ Username }}</span>
+        </div>
+        <div class="navbar-header">
+          <a class="navbar-brand hider" id="home" href="/">Home</a>
+            <a class="navbar-brand hider" id="logout" href="/logout">Logout</a>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" id="useraccount">
+            <img id="headimg" width="50" src="{{ static_url('images/band.png') }}" alt="logo">
+          </a>
+          <span class="navbar-brand">{{ Username }}</span>
         </div>
         <div class="navbar-header post">
           <a class="navbar-brand" href="/question">
@@ -37,9 +51,8 @@
           <div class="author">{{question[2]}}</div>
           <div class="clearfix"></div>
           <div class="text">{{question[3]}}</div>
-          <button class="replyBtn btn btn-primary">回复TA</button>
           {% for reply in replies %}
-            {% if reply[0] == question[2] %}
+            {% if reply[0] == question[0] %}
             <div class="clearfix"></div>
             <div class="jumbotron reply col-sm-10 col-sm-offset-2">
               <div class="replyTxt">{{reply[3]}}</div>
@@ -48,9 +61,9 @@
             </div>
             {% end %}
           {% end %}
+          <button class="replyBtn btn btn-primary">回复TA</button>
         </div>
       {% end %}
-      </div>
     </div>
   </body>
 </html>
