@@ -9,12 +9,15 @@ import os.path
 import re
 import time
 
+
 from tornado.options import define, options
 define("port", default=8888, help="run on the given port", type=int)
 
 name_pattern = re.compile(r"[a-zA-Z0-9]{6,12}")
 password_pattern = re.compile(r"[A-Z][a-zA-Z0-9]{5,11}")
 
+#file input-output functions
+#operations on userData
 def get_Users():
     users_file = open("static/data/userData.txt")
     users_list = users_file.read().strip().split('\n')
@@ -29,12 +32,13 @@ def write_Users(users):
     users_list = []
     for user in users:
         users_list.append(','.join(user))
-    users_file.writelines('\n'.join(users_list)+'\n')
+    users_file.write('\n'.join(users_list)+'\n')
     users_file.close()
 
+#operations on questionsData
 def get_Questions():
     questions_file = open("static/data/questionData.txt")
-    questions_list = questions_file.read().strip().split('\n')
+    questions_list = questions_file.read().decode('utf8').strip().split('\n')
     questions = []
     for question_item in questions_list:
         questions.append(question_item.split(';'))
@@ -45,19 +49,28 @@ def write_Questions(questions):
     questions_file = open("static/data/questionData.txt", "w")
     questions_list = []
     for question in questions:
-        questions_list.append(','.join(question))
-    questions_file.writelines('\n'.join(questions_list)+'\n')
+        questions_list.append(';'.join(question).encode('utf8'))
+    questions_file.write('\n'.join(questions_list)+'\n')
     questions_file.close()
 
+#operations on replyData
 def get_Replies():
     reply_file = open("static/data/replyData.txt")
-    reply_list = reply_file.read().strip().split('\n')
+    reply_list = reply_file.read().decode('utf8').strip().split('\n')
     reply = []
     for reply_item in reply_list:
         reply.append(reply_item.split(';'))
     reply_file.close()
     return reply
 
+def write_Replies(replies):
+    reply_file = open("static/data/replyData.txt", "w")
+    reply_list = []
+    for reply in replies:
+        print reply
+        reply_list.append(';'.join(reply).encode('utf8'))
+    reply_file.write('\n'.join(reply_list)+'\n')
+    reply_file.close()
 
 class BaseHandler(tornado.web.RequestHandler):
     def get_current_user(self):
@@ -68,26 +81,14 @@ class IndexHandler(BaseHandler):
     def get(self):
         if self.current_user:
             questions = get_Questions()
+            print questions
             replies = get_Replies()
-            self.render("index.html",title='主页',
+            self.render("index.html",title='主页', Username=self.current_user,
                         questions=questions, replies=replies)
         else:
             self.redirect("/login")
             return
         name = tornado.escape.xhtml_escape(self.current_user)
-
-
-class QuestionHandler(BaseHandler):
-    def get(self):
-        if self.current_user:
-            questions = get_Questions()
-            replies = get_Replies()
-            self.render("index.html", questions=questions, replies=replies)
-        else:
-            self.redirect("/login")
-            return
-        name = tornado.escape.xhtml_escape(self.current_user)
-
 
 class LoginHandler(BaseHandler):
     def get(self):
@@ -115,8 +116,9 @@ class LogoutHandler(BaseHandler):
 
 class SignUpHandler(BaseHandler):
     def get(self):
-        self.render("login_signup.html", title="注册页面", button="注册并登录",
-                    link="已有账号？点击登录", url="/signup", action="/login")
+        self.render("login_signup.html", title = "注册页面", button="注册",
+                    link="已有账号？点击登录",
+                    url="/login", action="/signup")
 
     def post(self):
         user = [self.get_argument("name").encode('utf-8'),
@@ -130,60 +132,49 @@ class SignUpHandler(BaseHandler):
         if valid_1 and valid_2 and valid_3:
             users.append(user)
             write_Users(users)
-            self.render("login_signup.html", title="登录页面", button="登录",
-                        link="没有账号？点击注册", url="/signup",
-                        action="/login")
+            self.render("login_signup.html", title = "注册页面", button="注册",
+                        link="已有账号？点击登录",
+                        url="/login", action="/signup")
         else:
-            self.render("login_signup.html", title="登录页面", button="登录",
-                        link="没有账号？点击注册", url="/signup",
-                        action="/login")
+            self.render("login_signup.html", title = "注册页面", button="注册",
+                        link="已有账号？点击登录",
+                        url="/login", action="/signup")
 
 
-# coded by YaoShaoling
+# coded by YaoShaoling, correted by HuangJunjie
 class QuestionHandler(BaseHandler):
     def get(self):
         if self.current_user:
-            self.render('question.html',
-                title = "提问页面",
-                subtitle = "问题",
-                uptime = "提交时间",
-                uptext = "问题内容",
-                button = "提交问题"
-            )
+            self.render('question.html', title="提问页面", subtitle="问题",
+                        uptime="提交时间", uptext="问题内容", button="提交问题",
+                        Username=self.current_user)
         else:
-            self.render('login_signup.html',
-                title = "登录页面",
-                button = "登录",
-                link1 = "没有账号？点击注册",
-                url = "/signup",
-                action = "/login"
-            )
+            self.render("login_signup.html", title="登录页面", button="登录",
+                    link="没有账号？点击注册", url="/signup", action="/login")
+
     def post(self):
+        questions = get_Questions()
+        print questions
         stitle = self.get_argument('title', None)
         stime = self.get_argument('time', None)
         stext = self.get_argument('content', None)
         if re.search(';', stitle) or re.search(';', stitle) or \
             re.search(';', stitle):
-            return self.render('question.html',
-                title = "提问页面",
-                subtitle = "问题",
-                uptime = "提交时间",
-                uptext = "问题内容",
-                button = "提交问题"
-            )
+            return self.render('question.html', title="提问页面",
+                               subtitle="问题", uptime="提交时间",
+                               uptext="问题内容", button="提交问题",
+                               Username=self.current_user)
+
         if stitle and stime and stext:
-            myfile = open('static/data/questionData.txt', 'a+')
-            myfile.write(stitle + ';' + stime + ';' + \
-                self.current_user + ';' + stext + '\n')
-            myfile.close()
+            new_question = [stitle, stime, self.current_user, stext]
+            questions.append(new_question)
+            write_Questions(questions)
             return self.redirect('/')
-        return self.render('question.html',
-            title = "提问页面",
-            subtitle = "问题",
-            uptime = "提交时间",
-            uptext = "问题内容",
-            button = "提交问题"
-        )
+
+        return self.render('question.html', title="提问页面", subtitle="问题",
+                            uptime="提交时间", uptext="问题内容",
+                            button="提交问题", Username=self.current_user)
+
 
 class WrongHandler(tornado.web.RequestHandler):
     def get(self):
@@ -195,16 +186,18 @@ class WrongHandler(tornado.web.RequestHandler):
         else:
             self.write('Ah ha! error:' + str(status_code))
 
+
 class ResponseHandler(BaseHandler):
     def post(self):
+        replies = get_Replies()
+        print replies
         responsetext = self.get_argument('responsetext', None)
         responseauthor = self.get_argument('author', None)
         if responsetext and responseauthor:
-            myfile = open('static/data/replyData.txt', 'a+')
-            myfile.write(responseauthor + ';' + \
-                time.strftime("%Y-%m-%d %H:%M") + ';' + \
-                self.current_user + ';' + responsetext + '\n')
-            myfile.close()
+            new_reply = [responseauthor, time.strftime("%Y-%m-%d %H:%M"),
+                         self.current_user, responsetext]
+            replies.append(new_reply)
+            write_Replies(replies)
         return self.redirect('/')
 
 

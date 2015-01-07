@@ -9,6 +9,9 @@ body {
 
 .navbar-ghost {
 	background-color: rgba(0, 0, 0, .3);
+	color:white;
+	position:fixed;
+	width:100%;
 }
 
 .loginSignup {
@@ -16,6 +19,17 @@ body {
 	background-color: rgba(199, 157, 110, 0.3);
 }
 
+.navbar-brand {
+	color:white;
+}
+
+#headimg {
+	display:inline;
+}
+
+.post {
+	float:right;
+}
 .question {
 	margin-top: 20px;
 	background-color: rgba(199, 157, 110, 0.3);
