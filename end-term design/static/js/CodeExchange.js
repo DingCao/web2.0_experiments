@@ -52,7 +52,10 @@ function MorseEncode(text) {
     if(i) code += ' ';
     for (var j = 0; j < words[i].length; j++) {
       if (j) code += '/';
-      code +=enMorse[words[i][j]];
+      if (enMorse[words[i][j]])
+        code += enMorse[words[i][j]];
+      else
+        code +=words[i][j];
     }
   }
   return code;
@@ -67,8 +70,36 @@ function MorseDecode(code) {
     if (i) text +=' ';
     var letters = words[i].split('/');
     for (var j = 0; j < letters.length; j++) {
-      text += deMorse[letters[j]];
+      if (deMorse[letters[j]])
+        text += deMorse[letters[j]];
+      else
+        text += letters[j];
     }
   }
   return text;
+}
+
+function Reverse(string) {
+  return string.split("").reverse().join("");
+}
+
+function Caesar(string, move) {
+  move = parseInt(move);
+  if (move == NaN || move <= 0 || move >=26)
+    return "请输入1~25的位移量！";
+
+  var code = "";
+  var str = string.toLowerCase();
+  for (var i = 0; i < string.length; i++) {
+    if (str[i] >= 'a' && str[i]<= 'z') {
+      // A little bug is that when |move| is nagetive, the function can't
+      // transform the letters correctly. So |move| will be limitted
+      // from 1 to 25
+      for (var temp = (str.charCodeAt(i)-97+move) % 26; temp < 97; temp += 97);
+      code += String.fromCharCode(temp);
+    } else {
+      code += str[i];
+    }
+  }
+  return code;
 }

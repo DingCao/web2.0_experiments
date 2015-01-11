@@ -1,100 +1,155 @@
 body {
-	background: url(../images/background.jpg);
-	background-attachment: fixed;
-	background-color: #777;
-	background-size: cover;
-	background-repeat: no-repeat;
-	font-family: "微软雅黑";
+  background-image: url(../images/background3.jpg);
+  background-attachment: fixed;
+  background-position:center;
+  background-color: white;
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: "微软雅黑";
 }
 
+
 .navbar-ghost {
-	background-color: rgba(0, 0, 0, .3);
-	color:white;
-	position:fixed;
-	width:100%;
+  background-repeat: no-repeat;
+  background-position:center;
+  color:white;
+  position:fixed;
+  width:100%;
+  z-index:20;
+}
+
+.container-fluid {
+  position:fixed;
+  /*background-image: url(../images/headline3.jpg);*/
+  background-position:center;
+  width:100%;
+  z-index:10;
 }
 
 .hidediv{
-    width:250px;
-    height:400px; 
-    border:solid 1px #666; 
-    background:#036;
+  width:230px;
+  height:400px;
+  border:solid 1px #666;
+  background:black;
+  z-index:11;
+  background-attachment: fixed;
 }
 
 .hider {
-	width:250px;
+  width:230px;
 }
 
+.hider:hover {
+  background-color:white;
+}
+
+
 #home {
-	margin-top:10%;
+  margin-top:10%;
 }
 
 .loginSignup {
-	margin-top: 25%;
-	background-color: rgba(199, 157, 110, 0.3);
+  color:white;
+  text-align:center;
+  margin-top: 20%;
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .navbar-brand {
-	color:white;
+  color:white;
+  z-index:11;
+}
+
+.navbar-header {
+  width:100%;
+}
+
+#small {
+  font:normal bold 8px arial,sans-serif;
+  text-align:center;
+  color:red;
 }
 
 #headimg {
-	display:inline-block;
+  display:inline-block;
+  z-index:11;
 }
 
 .post {
-	float:right;
+  float:right;
+  margin-right:-15px;
+  padding-right:5px;
 }
+
+#secrettext, #responsetext {
+  float: right;
+  min-width:180px;
+  margin-left:10%;
+}
+
+#code-type {
+  margin-bottom:7px;
+}
+
 .question {
-	margin-top: 20px;
-	background-color: rgba(199, 157, 110, 0.3);
+  margin-top: 20px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color:white;
+  overflow:hidden;
 }
 
 .title {
-	font-size: 24px;
+  font-size: 24px;
 }
 
 .author {
-	float: right;
-	margin-right: 20px;
-	font-size: 12px;
+  float: right;
+  margin-right: 20px;
+  font-size: 12px;
 }
 
 .time {
-	float: right;
-	font-size: 12px;
+  float: right;
+  font-size: 12px;
 }
 
 .text {
-	font-size: 16px;
+  font-size: 16px;
 }
 
 .replyBtn {
-	float: right;
-	margin-left:10px;
+  float: right;
+  margin-left:4px;
 }
 
 .reply {
-	margin-top: 10px;
-	background-color: rgba(244, 230, 214, 0.3);
+  margin-top: 10px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color:white;
 }
 
 .replyTxt {
-	font-size: 14px;
+  font-size: 14px;
 }
 
 .replyTime {
-	float: right;
-	font-size: 12px;
+  float: right;
+  font-size: 12px;
 }
 
 .replyAuthor {
-	float: right;
-	margin-right: 20px;
-	font-size: 12px;
+  float: right;
+  margin-right: 20px;
+  font-size: 12px;
 }
 
 .ask {
-	margin-top: 50px;
-	background-color: rgba(199, 157, 110, 0.3);
+  margin-top: 50px;
+  background-color: rgba(0, 0, 0, 0.8); /*rgba(199, 157, 110, 0.8);*/
+  color:white;
+}
+
+.questionform {
+  display:block;
+  width:200px;
 }

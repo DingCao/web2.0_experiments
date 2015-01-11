@@ -1,14 +1,18 @@
 (function($) {
   $.fn.huadong = function( obj, obja, time ) {
     var left = $(obj).width(), up = this, num = 0, heigh = $('.navbar-header').height();
-    $(obj).height($(window).height()).width(0).hide();
+    $(obj).height($('body').height()).width(0).hide();
     $(obja).click(function(){
-      $('.navbar').height($(window).height()).css({'position':'absolute', 'top':'0px', 'left' : '0px'});
-      $(obj).show().animate({'width':left + 'px'}, time);
+      $('.navbar').height($('body').height()).css({'position':'fixed', 'top':'0px', 'left' : '0px'});
+        $(obj).show().animate({ 'width':left + 'px'}, time);
+      $('body').css({'top': '-10px', 'overflow': 'hidden'});
+      $('.container-fluid').css('display', 'none');
     });
-    /*$('logout').mouseout(function(){
+    /*$('.hidediv').mouseout(function(){
       $(this).animate({'width':'0px'}, time, function(){ $(this).hide(); });
       $('.navbar').height(heigh);
+      $('body').css({'top': '0px', 'overflow': 'scroll'});
+      $('.container-fluid').css('display', 'block');
     });*/
   }
 })(jQuery);

@@ -67,10 +67,10 @@ def write_Replies(replies):
     reply_file = open("static/data/replyData.txt", "w")
     reply_list = []
     for reply in replies:
-        print reply
         reply_list.append(';'.join(reply).encode('utf-8'))
     reply_file.write('\n'.join(reply_list)+'\n')
     reply_file.close()
+
 
 class BaseHandler(tornado.web.RequestHandler):
     def get_current_user(self):
@@ -81,15 +81,15 @@ class IndexHandler(BaseHandler):
     def get(self):
         if self.current_user:
             questions = get_Questions()
-            print questions
+            questions = questions[::-1]
             replies = get_Replies()
-            print replies
             self.render("index.html",title='主页', Username=self.current_user,
                         questions=questions, replies=replies)
         else:
             self.redirect("/login")
             return
         name = tornado.escape.xhtml_escape(self.current_user)
+
 
 class LoginHandler(BaseHandler):
     def get(self):
@@ -112,7 +112,7 @@ class LoginHandler(BaseHandler):
 
 class LogoutHandler(BaseHandler):
     def get(self):
-        self.clear_cookie("username")
+        self.clear_all_cookies()
         return self.redirect("/login")
 
 
@@ -128,16 +128,21 @@ class SignUpHandler(BaseHandler):
         users = get_Users()
 
         valid_1 = name_pattern.match(user[0]) and \
-            password_pattern.match(user[1])
-        valid_2 = not (user[0] == "" or user[1] == "")
-        valid_3 = (not user in users)
+                  password_pattern.match(user[1])
 
-        if valid_1 and valid_2 and valid_3:
+        # avoid the same user be registered again by other password
+        valid_2 = True
+        for user_item in users:
+            if user_item[0] == user[0]:
+                valid_2 = False
+
+        if valid_1 and valid_2:
             users.append(user)
             write_Users(users)
             self.render("login_signup.html", title = "注册页面", button="注册",
                         link="已有账号？点击登录",
-                        url="/login", action="/signup")
+                        url="/login", action="/signup",
+                        subtitle="注册成功！请前往登录页面登录")
         else:
             self.render("login_signup.html", title = "注册页面", button="注册",
                         link="已有账号？点击登录",
@@ -150,26 +155,23 @@ class QuestionHandler(BaseHandler):
     def get(self):
         if self.current_user:
             self.render('question.html', title="提问页面", subtitle="问题",
-                        uptime="提交时间", uptext="问题内容", button="提交问题",
-                        Username=self.current_user,
-                        current=time.strftime("%Y-%m-%d"))
+                        uptext="问题内容", button="提交问题",
+                        Username=self.current_user)
         else:
-            self.render("login_signup.html", title="登录页面", button="登录",
-                    link="没有账号？点击注册", url="/signup", action="/login")
+            self.redirect("/login")
 
     def post(self):
         questions = get_Questions()
-        print questions
         stitle = self.get_argument('title', None)
-        stime = self.get_argument('time', None)
+        stime = time.strftime("%Y-%m-%d %H:%M")
         stext = self.get_argument('content', None)
-        if re.search(';', stitle) or re.search(';', stitle) or \
-            re.search(';', stitle):
+        invalid_1 = re.search(';', stitle) or re.search(';', stext)
+        invalid_2 = re.search('\n', stitle)or re.search('\n', stext)
+        if invalid_1 or invalid_2:
             return self.render('question.html', title="提问页面",
-                               subtitle="问题", uptime="提交时间",
+                               subtitle="问题",
                                uptext="问题内容", button="提交问题",
-                               Username=self.current_user,
-                               current=time.strftime("%Y-%m-%d"))
+                               Username=self.current_user)
 
         if stitle and stime and stext:
             new_question = [stitle, stime, self.current_user, stext]
@@ -178,9 +180,8 @@ class QuestionHandler(BaseHandler):
             return self.redirect('/')
 
         return self.render('question.html', title="提问页面", subtitle="问题",
-                            uptime="提交时间", uptext="问题内容",
-                            button="提交问题", Username=self.current_user,
-                            current=time.strftime("%Y-%m-%d"))
+                            uptext="问题内容",
+                            button="提交问题", Username=self.current_user)
 
 
 class WrongHandler(tornado.web.RequestHandler):
@@ -197,13 +198,11 @@ class WrongHandler(tornado.web.RequestHandler):
 class ResponseHandler(BaseHandler):
     def post(self):
         replies = get_Replies()
-        print replies
         responsetext = self.get_argument('responsetext', None)
         responsetitle = self.get_argument('title', None)
         if responsetext and responsetitle:
             new_reply = [responsetitle, time.strftime("%Y-%m-%d %H:%M"),
                          self.current_user, responsetext]
-            print new_reply
             replies.append(new_reply)
             write_Replies(replies)
         return self.redirect('/')
