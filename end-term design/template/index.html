@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="utf-8">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,7 +19,7 @@
       <div class="hidediv">
         <div class="navbar-header">
           <a class="navbar-brand">
-              
+
             <img id="headimg" width="50" src="{{ static_url('images/band1.png') }}" alt="logo">
           </a>
           <span class="navbar-brand">{{ Username }}</span>
@@ -30,15 +30,15 @@
         </div>
       </div>
       <div class="container-fluid">
-        <img src="{{ static_url('images/headline3.jpg') }}" alt="headling" width=100% height=10%>
+        <!--<img src="{{ static_url('images/headline3.jpg') }}" alt="headling" width=100% height=10%>-->
         <div class="navbar-header">
           <a class="navbar-brand" id="useraccount">
             <img id="headimg" width="50" src="{{ static_url('images/band1.png') }}" alt="logo">
           </a>
-    
-          <span class="navbar-brand">{{ Username }}</span>
+
+            <span class="navbar-brand"><br/>{{ Username }}</span>
           <a class="navbar-brand post" href="/question">
-            <img id="headimg" width="30" src="{{ static_url('images/post.gif') }}" alt="logo">
+            <img id="headimg" width="50" src="{{ static_url('images/question.png') }}" alt="logo">
           </a>
         </div>
       </div>
@@ -46,18 +46,19 @@
     <div class="container">
       {% for question in questions %}
         <div class="jumbotron question col-sm-10 col-sm-offset-1">
-          <div class="title">{{question[0]}}</div>
-          <div class="time">{{question[1]}}</div>
-          <div class="author">{{question[2]}}</div>
+          <div class="id" display="None">{{question[0]}}</div>
+          <div class="title">{{question[1]}}</div>
+          <div class="time">{{question[2]}}</div>
+          <div class="author">{{question[3]}}</div>
           <div class="clearfix"></div>
-          <div class="text">{{question[3]}}</div>
+          <div class="text">{{question[4]}}</div>
           {% for reply in replies %}
-            {% if reply[0] == question[0] %}
+            {% if reply[1] == question[0] %}
             <div class="clearfix"></div>
             <div class="jumbotron reply col-sm-10 col-sm-offset-2">
-              <div class="replyTxt">{{reply[3]}}</div>
-              <div class="replyTime">{{reply[2]}}</div>
-              <div class="replyAuthor">{{reply[1]}}</div>
+              <div class="replyTxt">{{reply[4]}}</div>
+              <div class="replyTime">{{reply[3]}}</div>
+              <div class="replyAuthor">{{reply[2]}}</div>
             </div>
             {% end %}
           {% end %}

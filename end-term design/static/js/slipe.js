@@ -5,7 +5,7 @@
     $(obja).click(function(){
       $('.navbar').height($('body').height()).css({'position':'fixed', 'top':'0px', 'left' : '0px'});
         $(obj).show().animate({ 'width':left + 'px'}, time);
-      $('body').css({'top': '-10px', 'overflow': 'hidden'});
+        $('body').css({'top': '-10px', 'overflow': 'hidden', 'style':'opacity:0.5'});
       $('.container-fluid').css('display', 'none');
     });
     /*$('.hidediv').mouseout(function(){

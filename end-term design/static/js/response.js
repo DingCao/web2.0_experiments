@@ -137,7 +137,8 @@ function typeChange() {
         'typt': 'input',
         'id': 'move',
         'value': '4',
-        'class': 'btn btn-primary'
+        'class': 'btn btn-primary',
+        'style': 'float: right'
       })
     );
   } else if ($('#code-type').val() != 'caesar' && $('#move').val()) {
